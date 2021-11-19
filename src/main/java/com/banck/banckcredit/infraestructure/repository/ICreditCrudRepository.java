@@ -1,0 +1,12 @@
+package com.banck.banckcredit.infraestructure.repository;
+
+import com.banck.banckcredit.infraestructure.model.dao.CreditDao;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+
+/**
+ *
+ * @author jonavcar
+ */
+public interface ICreditCrudRepository extends ReactiveCrudRepository<CreditDao, String> {
+
+}
