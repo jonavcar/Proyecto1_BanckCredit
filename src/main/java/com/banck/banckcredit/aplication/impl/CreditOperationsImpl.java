@@ -85,8 +85,7 @@ public class CreditOperationsImpl implements CreditOperations {
     }
 
     @Override
-    public void delete(String credito
-    ) {
+    public void delete(String credito) {
         creditRepository.delete(credito);
     }
 

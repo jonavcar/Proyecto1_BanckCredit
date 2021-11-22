@@ -57,10 +57,10 @@ public class CreditController {
         c.setCredit(c.getCustomer() + "-" + getRandomNumberString());
         c.setDateCreated(dateTime.format(formatter));
 
-        boolean isAccountType = false;
+        boolean isCreditType = false;
         for (CreditType tc : CreditType.values()) {
             if (c.getCreditType().equals(tc.value)) {
-                isAccountType = true;
+                isCreditType = true;
             }
         }
 
@@ -70,7 +70,7 @@ public class CreditController {
                 isCustomerType = true;
             }
         }
-        if (!isAccountType) {
+        if (!isCreditType) {
             logger.error("El codigo de Tipo Credito (" + c.getCreditType() + "), no existe!");
         }
         if (!isCustomerType) {
