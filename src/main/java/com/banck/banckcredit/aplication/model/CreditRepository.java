@@ -1,7 +1,6 @@
 package com.banck.banckcredit.aplication.model;
 
 import com.banck.banckcredit.domain.Credit;
-import com.banck.banckcredit.domain.Customer;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -11,13 +10,15 @@ import reactor.core.publisher.Mono;
  */
 public interface CreditRepository {
 
-    public Mono<Credit> get(String credito);
+    public Flux<Credit> list();
 
-    public Flux<Credit> listAll();
+    public Flux<Credit> listByCustomer(String customer);
 
-    public Mono<Credit> create(Credit c);
+    public Mono<Credit> get(String id);
 
-    public Mono<Credit> update(String credito, Credit c);
+    public Mono<Credit> create(Credit credit);
 
-    public void delete(String credito);
+    public Mono<Credit> update(String id, Credit credit);
+
+    public void delete(String id);
 }

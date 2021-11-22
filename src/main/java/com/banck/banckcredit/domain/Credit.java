@@ -9,10 +9,11 @@ import lombok.Data;
 @Data
 public class Credit {
 
-    public String credito;
-    public String cliente;
-    public String tipoCliente;
-    public String tipoCredito;
-    public int montoLimite;
-    public String fecha;
+    public String credit;
+    public String creditType;
+    public String customer;
+    public String customerType;
+    public String dateCreated;
+    public int limitAmount;
+    public boolean active;
 }

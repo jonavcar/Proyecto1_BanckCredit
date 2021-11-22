@@ -11,13 +11,15 @@ import reactor.core.publisher.Mono;
 public interface CreditOperations {
 
     public Flux<Credit> list();
+    
+    public Flux<Credit> listByCustomer(String customer);
 
-    public Mono<Credit> get(String credito);
+    public Mono<Credit> get(String id);
+    
+    public Mono<Credit> create(Credit credit);
 
-    public Mono<Credit> create(Credit c);
+    public Mono<Credit> update(String id, Credit credit);
 
-    public Mono<Credit> update(String credito, Credit c);
-
-    public void delete(String credito);
+    public void delete(String id);
 
 }
