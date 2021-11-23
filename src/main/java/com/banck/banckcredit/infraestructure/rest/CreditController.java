@@ -101,7 +101,7 @@ public class CreditController {
                 });
             } else {
                 if (CreditType.PERSONAL_CREDIT.equals(m.getCreditType())) {
-                    return Mono.just(ResponseEntity.ok("Usted solo puede tener credito empresarial!!"));
+                    return Mono.just(ResponseEntity.ok("Usted no puede tener credito personal!!"));
                 } else {
                     return operations.create(c).flatMap(rp -> {
                         return Mono.just(ResponseEntity.ok(rp));
