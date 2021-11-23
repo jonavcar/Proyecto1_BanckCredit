@@ -22,6 +22,7 @@ import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.banck.banckcredit.aplication.CreditOperations;
+import org.springframework.http.ResponseEntity;
 
 /**
  *
@@ -53,31 +54,61 @@ public class CreditController {
     }
 
     @PostMapping
-    public Mono<Credit> create(@RequestBody Credit c) {
+    public Mono<ResponseEntity> create(@RequestBody Credit c) {
         c.setCredit(c.getCustomer() + "-" + getRandomNumberString());
         c.setDateCreated(dateTime.format(formatter));
 
-        boolean isCreditType = false;
-        for (CreditType tc : CreditType.values()) {
-            if (c.getCreditType().equals(tc.value)) {
-                isCreditType = true;
+        return Mono.just(c).flatMap(m -> {
+            boolean isCreditType = false;
+            for (CreditType tc : CreditType.values()) {
+                if (c.getCreditType().equals(tc.value)) {
+                    isCreditType = true;
+                }
             }
-        }
 
-        boolean isCustomerType = false;
-        for (CustomerType tc : CustomerType.values()) {
-            if (c.getCustomerType().equals(tc.value)) {
-                isCustomerType = true;
+            boolean isCustomerType = false;
+            for (CustomerType tc : CustomerType.values()) {
+                if (c.getCustomerType().equals(tc.value)) {
+                    isCustomerType = true;
+                }
             }
-        }
-        if (!isCreditType) {
-            logger.error("El codigo de Tipo Credito (" + c.getCreditType() + "), no existe!");
-        }
-        if (!isCustomerType) {
-            logger.error("El codigo de Tipo Cliente (" + c.getCustomerType() + "), no existe!");
-        }
+            if (!isCreditType) {
+                return Mono.just(ResponseEntity.ok("El codigo de Tipo Credito (" + c.getCreditType() + "), no existe!"));
+            }
+            if (!isCustomerType) {
+                return Mono.just(ResponseEntity.ok("El codigo de Tipo Cliente (" + c.getCustomerType() + "), no existe!"));
+            }
 
-        return operations.create(c);
+            if (CustomerType.NATURAL_PERSON.equals(m.getCustomerType())) {
+
+                return operations.listByCustomer(m.getCustomer()).filter(p -> p.getCreditType().equals(m.getCreditType())).count().flatMap(fm -> {
+                    if (CreditType.CREDIT_CARD.equals(m.getCreditType())) {
+                        return operations.create(c).flatMap(rp -> {
+                            return Mono.just(ResponseEntity.ok(rp));
+                        });
+                    } else if (CreditType.BUSINESS_CREDIT.equals(m.getCreditType())) {
+                        return Mono.just(ResponseEntity.ok("Usted no puede tener credito empresarial"));
+                    } else {
+                        if (fm.intValue() == 0) {
+                            return operations.create(c).flatMap(rp -> {
+                                return Mono.just(ResponseEntity.ok(rp));
+                            });
+                        } else {
+                            return Mono.just(ResponseEntity.ok("Usted solo puede tener un credito personal"));
+                        }
+                    }
+
+                });
+            } else {
+                if (CreditType.PERSONAL_CREDIT.equals(m.getCreditType())) {
+                    return Mono.just(ResponseEntity.ok("Usted solo puede tener credito empresarial!!"));
+                } else {
+                    return operations.create(c).flatMap(rp -> {
+                        return Mono.just(ResponseEntity.ok(rp));
+                    });
+                }
+            }
+        });
     }
 
     @PutMapping("/{id}")

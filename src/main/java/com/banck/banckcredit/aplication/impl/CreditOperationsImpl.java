@@ -36,46 +36,7 @@ public class CreditOperationsImpl implements CreditOperations {
 
     @Override
     public Mono<Credit> create(Credit credit) {
-        AtomicReference<Mono<Credit>> atCredit = new AtomicReference<>();
-        Flux<Credit> lstCredits = creditRepository.listByCustomer(credit.getCustomer());
-
-        if (CustomerType.NATURAL_PERSON.equals(credit.getCustomerType())) {
-
-            if (CreditType.PERSONAL_CREDIT.equals(credit.getCreditType())) {
-
-                lstCredits.filter(act -> CreditType.PERSONAL_CREDIT.equals(act.getCreditType()))
-                        .count()
-                        .subscribe(count -> {
-                            if (count == 0) {
-                                atCredit.set(creditRepository.create(credit));
-                            } else {
-                                logger.warn("Usted solo puede tener un credito personal");
-                            }
-                        });
-            } else if (CreditType.CREDIT_CARD.equals(credit.getCreditType())) {
-
-                atCredit.set(creditRepository.create(credit));
-
-            } else if (CreditType.BUSINESS_CREDIT.equals(credit.getCreditType())) {
-                logger.warn("Usted no puede tener credito empresarial");
-            }
-        }
-
-        if (CustomerType.LEGAL_PERSON.equals(credit.getCustomerType())) {
-
-            if (CreditType.PERSONAL_CREDIT.equals(credit.getCreditType())) {
-                logger.warn("Usted solo puede tener credito empresarial!!");
-            } else {
-                atCredit.set(creditRepository.create(credit));
-            }
-        }
-
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException ex) {
-            logger.error(ex.getMessage());
-        }
-        return atCredit.get();
+        return creditRepository.create(credit);
     }
 
     @Override
