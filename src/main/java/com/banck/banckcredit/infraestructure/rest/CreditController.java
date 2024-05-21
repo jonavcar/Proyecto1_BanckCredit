@@ -15,10 +15,11 @@ import reactor.core.publisher.Mono;
 import com.banck.banckcredit.aplication.impl.CreditOperationsImpl;
 import com.banck.banckcredit.utils.CreditType;
 import com.banck.banckcredit.utils.CustomerType;
+
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.banck.banckcredit.aplication.CreditOperations;
@@ -33,6 +34,7 @@ import org.springframework.http.ResponseEntity;
 @RequiredArgsConstructor
 public class CreditController {
 
+    private final SecureRandom secureRandom;
     Logger logger = LoggerFactory.getLogger(CreditOperationsImpl.class);
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     LocalDateTime dateTime = LocalDateTime.now(ZoneId.of("America/Bogota"));
@@ -121,9 +123,8 @@ public class CreditController {
         operations.delete(id);
     }
 
-    public static String getRandomNumberString() {
-        Random rnd = new Random();
-        int number = rnd.nextInt(9999);
+    public String getRandomNumberString() {
+        int number = this.secureRandom.nextInt(9999);
         return String.format("%04d", number);
     }
 }
