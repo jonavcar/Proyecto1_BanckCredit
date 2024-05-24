@@ -115,6 +115,8 @@
                 </executions>
                 <configuration>
                     <configLocation>${checkstyle.config.location}/google_checks.xml</configLocation>
+                    <suppressionsLocation>${checkstyle.config.location}/checkstyle-suppressions.xml</suppressionsLocation>
+                    <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>true</failsOnError>
                     <linkXRef>true</linkXRef>
