@@ -1,14 +1,15 @@
-package com.banck.banckcredit.infraestructure.mockRepository;
+package com.banck.banckcredit.infraestructure.mockrepository;
 
+import com.banck.banckcredit.aplication.model.CreditRepository;
 import com.banck.banckcredit.domain.Credit;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import com.banck.banckcredit.aplication.model.CreditRepository;
 
 /**
+ * Resumen...
  *
  * @author jonavcar
  */
@@ -40,17 +41,17 @@ public class MockCreditRepository implements CreditRepository {
 
     @Override
     public Mono<Credit> update(String credito, Credit c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void delete(String dniRuc) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public Flux<Credit> listByCustomer(String customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }
