@@ -3,6 +3,7 @@ package com.banck.banckcredit.domain;
 import lombok.Data;
 
 /**
+ * Resumen...
  *
  * @author jonavcar
  */

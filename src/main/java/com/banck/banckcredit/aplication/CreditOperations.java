@@ -5,17 +5,18 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
+ * Resumen...
  *
  * @author jonavcar
  */
 public interface CreditOperations {
 
     public Flux<Credit> list();
-    
+
     public Flux<Credit> listByCustomer(String customer);
 
     public Mono<Credit> get(String id);
-    
+
     public Mono<Credit> create(Credit credit);
 
     public Mono<Credit> update(String id, Credit credit);
