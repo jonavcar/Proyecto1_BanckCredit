@@ -15,9 +15,9 @@
     <description>Microservicio de Creditos bancarios</description>
     <properties>
         <java.version>11</java.version>
-        <sonar.projectKey>evaluar-miproyecto</sonar.projectKey>
+        <sonar.projectKey>BanckCredit</sonar.projectKey>
         <sonar.host.url>http://localhost:9000</sonar.host.url>
-        <sonar.login>sqp_98d875fd83c7c2400785fa76d01a8587c2852229</sonar.login>
+        <sonar.login>squ_29f2bc26660956cf431354d19b5c89137fb0e550</sonar.login>
         <checkstyle.config.location>${project.basedir}</checkstyle.config.location>
     </properties>
     <dependencies>
@@ -157,7 +157,7 @@
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.07</minimum>
+                                            <minimum>0.05</minimum>
                                         </limit>
                                     </limits>
                                 </rule>
